@@ -1,3 +1,10 @@
+/* Ensure the container takes full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
 @font-face {
     font-family: 'TBC';
     src: url('../Font/bpg_nino_mtavruli_normal.otf');
@@ -55,87 +62,60 @@ nav ul li a:hover {
     color: #0073b1;
 }
 
-main {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 5%;
+
+.container {
+    display: flex;
+    height: calc(100vh - 60px); /* Adjust according to your header height */
 }
 
-.posts {
-    display: grid;
-    gap: 2rem;
+aside {
+    width: 250px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-right: 1px solid #dee2e6;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-.post {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    padding: 1.5rem;
-    transition: transform 0.3s ease;
+aside .logo {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.post:hover {
-    transform: translateY(-5px);
-}
-
-.post h3 {
-    color: #0073b1;
-    margin-bottom: 0.5rem;
-}
-
-.post_content {
-    margin-bottom: 1rem;
-}
-
-.post-image {
+aside .logo-img {
     max-width: 100%;
     height: auto;
-    border-radius: 4px;
-    margin-bottom: 1rem;
 }
 
-.comment-section h4 {
-    color: #0073b1;
-    cursor: pointer;
-    margin-top: 1rem;
+aside .username {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-.comment-section h4:hover {
+aside .side-links {
+    list-style: none;
+    padding: 0;
+}
+
+aside .side-links li {
+    margin-bottom: 10px;
+}
+
+aside .side-links a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+}
+
+aside .side-links a:hover {
     text-decoration: underline;
 }
 
-.comments-container {
-    background-color: #f9f9f9;
-    border-radius: 4px;
-    padding: 1rem;
-    margin-top: 1rem;
+main {
+    flex: 1;
+    padding: 20px;
 }
 
-.textarea {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    resize: vertical;
-}
-
-.submit {
-    background-color: #0073b1;
-    color: #ffffff;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.submit:hover {
-    background-color: #005b8f;
-}
-
-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #ffffff;
-    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-}

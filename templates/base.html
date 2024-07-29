@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,13 @@
     {% block styles %}{% endblock %}
     <title>{% block title %}უსახელო{% endblock %}</title>
 </head>
+
 <body>
     <header>
         <nav>
             <h1>უსახელო</h1>
             <ul>
                 {% if current_user.is_authenticated %}
-                <li class="username">{{ current_user.username }}</li>
                 <li><a href="/">მთავარი</a></li>
                 <li><a href="/add_post">პოსტის დამატება</a></li>
                 <li><a href="/logout">გამოსვლა</a></li>
@@ -25,12 +26,33 @@
         </nav>
     </header>
     
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    <div class="container">
+        {% if current_user.is_authenticated %}
+        <aside>
+            <div style="display: flex; align-items: center; gap: 10px; ">
+                <img src="{{ url_for('static', filename='uploads/' ~ current_user.img) }}" alt="User Image"
+                    class="post-image" width="40px" style="border-radius: 50%; margin-top: 10px; height: 40px;">
+
+                <p><strong> {{ current_user.username }}</strong></p> <!-- Display author's username -->
+            </div>
+            <ul class="side-links">
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/profile">Projects</a></li>
+                <li><a href="/requests">Requests</a></li>
+                <li><a href="/chat">Chat</a></li>
+            </ul>
+        </aside>
+        {% endif %}
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    
 
     <!-- <footer>
         <p>&copy; 2024 უსახელო. ყველა უფლება დაცულია.</p>
     </footer> -->
 </body>
+
 </html>

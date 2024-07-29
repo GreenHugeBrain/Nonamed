@@ -8,7 +8,7 @@
 
 {% block content %}
     <h1>Register</h1>
-    <form action="/register" method="POST">
+    <form action="/register" method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <div class="form-group">
             {{ form.username.label }}<br>
@@ -22,6 +22,12 @@
             {{ form.password.label }}<br>
             {{ form.password(size=32) }}
         </div>
+        <div class="form-group">
+            {{ form.img.label }}<br>
+            {{ form.img(size=32) }}
+        </div>
         {{ form.submit() }}
     </form>
+
+        
 {% endblock %}

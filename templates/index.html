@@ -10,11 +10,21 @@
 <div class="posts">
     {% for post in posts %}
     <li class="post">
-        <p><em>By {{ post.username }}</em></p> <!-- Display author's username -->
+        <div style="display: flex; align-items: center; gap: 10px; ">
+            <img src="{{ url_for('static', filename='uploads/' ~ post.user_image) }}" alt="Post Image" width="40px" height="40px" style="border-radius: 50%;">
+            <p><em>By {{ post.username }}</em></p> <!-- Display author's username -->
+        </div>
         <h3>{{ post.title }}</h3>
+        {% if UserTrue %}
+        <form action="{{ url_for('edit_post', id=post.id) }}" method="POST" enctype="multipart/form-data">
+            <button type="submit" class="edit-btn">Edit</button>
+        </form>
+        
+        {% endif %}
         <p class="post_content">{{ post.content }}</p>
         {% if post.image_file %}
-            <img src="{{ url_for('static', filename='uploads/' ~ post.image_file) }}" alt="Post Image" class="post-image" width="250px">
+        <img src="{{ url_for('static', filename='uploads/' ~ post.image_file) }}" alt="Post Image" class="post-image"
+            width="250px">
         {% endif %}
         <div class="comment-section">
             <h4 class="toggle-comments">კომენტარები</h4>
@@ -23,13 +33,19 @@
                 <ul>
                     {% for comment in post.comments %}
                     <li>
-                        <strong>{{ comment.username }}:</strong>
+                        <div style="display: flex; align-items: center; gap: 10px; ">
+                            <img src="{{ url_for('static', filename='uploads/' ~ user.img) }}" alt="User Image" class="post-image"
+                                width="30px" style="border-radius: 30px; margin-top: 10px;">
+                            <p><strong>By {{ post.username }}</strong></p> <!-- Display author's username -->
+                        </div>
                         <p>{{ comment.content }}</p>
                     </li>
                     {% endfor %}
                 </ul>
                 {% else %}
-                <p style="font-family: 'TBC'; background-color: rgba(208, 208, 208, 0.828); padding: 4px; border-radius: 5px;">კომენტარები არ არის</p>
+                <p
+                    style="font-family: 'TBC'; background-color: rgba(208, 208, 208, 0.828); padding: 4px; border-radius: 5px;">
+                    კომენტარები არ არის</p>
                 {% endif %}
                 <form action="/" method="POST">
                     {{ comment_form.hidden_tag() }}
