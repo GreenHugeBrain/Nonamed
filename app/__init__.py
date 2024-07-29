@@ -1,0 +1,1 @@
+from app import app, home, add_post, register, login, logout

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link rel="stylesheet" href="/static/styles/style.css">
+{% endblock %}
+
+
+{% block content %}
+{% if posts %}
+<div class="posts">
+    {% for post in posts %}
+    <li class="post">
+        <p><em>By {{ post.username }}</em></p> <!-- Display author's username -->
+        <h3>{{ post.title }}</h3>
+        <p class="post_content">{{ post.content }}</p>
+        {% if post.image_file %}
+            <img src="{{ url_for('static', filename='uploads/' ~ post.image_file) }}" alt="Post Image" class="post-image" width="250px">
+        {% endif %}
+        <div class="comment-section">
+            <h4 class="toggle-comments">კომენტარები</h4>
+            <div class="comments-container">
+                {% if post.comments %}
+                <ul>
+                    {% for comment in post.comments %}
+                    <li>
+                        <strong>{{ comment.username }}:</strong>
+                        <p>{{ comment.content }}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p style="font-family: 'TBC'; background-color: rgba(208, 208, 208, 0.828); padding: 4px; border-radius: 5px;">კომენტარები არ არის</p>
+                {% endif %}
+                <form action="/" method="POST">
+                    {{ comment_form.hidden_tag() }}
+                    <input type="hidden" name="post_id" value="{{ post.id }}">
+                    <div class="form-group">
+                        {{ comment_form.comment.label }}
+                        {{ comment_form.comment(class="textarea", placeholder="წერე შენი კომენტარი აქ") }}
+                    </div>
+                    <div class="form-group">
+                        {{ comment_form.submit(class="submit") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</div>
+{% else %}
+<p>პოსტები არ არსებობს.</p>
+{% endif %}
+
+<script src="/static/JS/showComment.js"></script>
+{% endblock %}

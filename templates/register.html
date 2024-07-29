@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/styles/register.css">
+{% endblock %}
+
+{% block title %}Register - My Blog{% endblock %}
+
+{% block content %}
+    <h1>Register</h1>
+    <form action="/register" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}
+        </div>
+        <div class="form-group">
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}
+        </div>
+        {{ form.submit() }}
+    </form>
+{% endblock %}

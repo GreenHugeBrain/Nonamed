@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/styles/addpost.css">
+{% endblock %}
+
+{% block title %}Add Post - My Blog{% endblock %}
+
+{% block content %}
+    <h1>Add a New Post</h1>
+    <form action="/add_post" method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.title.label }}<br>
+            {{ form.title(size=32) }}
+        </div>
+        <div class="form-group">
+            {{ form.content.label }}<br>
+            {{ form.content(rows=10) }}
+        </div>
+        <div class="form-group">
+            {{ form.image.label }}<br>
+            {{ form.image(id="imageInput") }}
+            <div id="imagePreview"></div>
+        </div>
+        {{ form.submit() }}
+    </form>
+
+    <script>
+        document.getElementById('imageInput').addEventListener('change', function(event) {
+            var output = document.getElementById('imagePreview');
+            output.innerHTML = ''; // Clear previous preview
+            if (event.target.files && event.target.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '100%';
+                    img.style.height = 'auto';
+                    output.appendChild(img);
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        });
+    </script>
+{% endblock %}
