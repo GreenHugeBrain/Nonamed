@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link rel="stylesheet" href="/static/styles/search.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    {{ comment_form.hidden_tag()}}
+    {% if posts %}
+    <div class="posts">
+        {% for post in posts %}
+        <div class="post">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="{{ url_for('static', filename='uploads/' ~ post.user_image) }}" alt="Post Image" width="40px" height="40px" style="border-radius: 50%;">
+                <p><em>By {{ post.username }}</em></p>
+            </div>
+            <h3>{{ post.title }}</h3>
+            {% if UserTrue %}
+            <form action="{{ url_for('edit_post', id=post.id) }}" method="POST" enctype="multipart/form-data">
+                <button type="submit" class="edit-btn">Edit</button>
+            </form>
+            <form action="{{ url_for('delete_post', id=post.id) }}" method="POST" enctype="multipart/form-data">
+                <button type="submit" class="remove-btn">Remove</button>
+            </form>
+            {% endif %}
+            <p class="post_content">{{ post.content }}</p>
+            {% if post.image_file %}
+                <img src="{{ url_for('static', filename='uploads/' ~ post.image_file) }}" alt="{{ post.title }}" width="250px" style="border-radius: 20px;">
+            {% endif %}
+            <div class="comment-section">
+                <h4 class="toggle-comments">კომენტარები</h4>
+                <div class="comments-container">
+                    {% if post.comments %}
+                    <ul>
+                        {% for comment in post.comments %}
+                        <li>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <img src="{{ url_for('static', filename='uploads/' ~ comment.user_image) }}" alt="User Image" class="post-image" width="30px" style="border-radius: 30px; margin-top: 10px;">
+                                <p><strong>By {{ comment.username }}</strong></p>
+                            </div>
+                            <p>{{ comment.content }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p class="no-comments">კომენტარები არ არის</p>
+                    {% endif %}
+                    <form action="/" method="POST">
+                        {{ comment_form.hidden_tag() }}
+                        <input type="hidden" name="post_id" value="{{ post.id }}">
+                        <div class="form-group">
+                            {{ comment_form.comment.label }}
+                            {{ comment_form.comment(class="textarea", placeholder="წერე შენი კომენტარი აქ") }}
+                        </div>
+                        <div class="form-group">
+                            {{ comment_form.submit(class="submit") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    {% endif %}
+</div>
+<script src="/static/JS/showComment.js"></script>
+{% endblock %}

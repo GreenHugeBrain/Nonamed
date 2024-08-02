@@ -1,0 +1,83 @@
+/* Styles for post detail page */
+.post-detail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+}
+
+.post-info {
+    flex: 1;
+}
+
+.post-info h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.post-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.date {
+    font-size: 0.9em;
+    color: #999;
+}
+
+.post-content {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.post-content p {
+    margin-bottom: 15px;
+}
+
+.post-actions {
+    margin-top: 20px;
+}
+
+.action-form {
+    display: inline;
+}
+
+.edit-btn,
+.remove-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.edit-btn:hover,
+.remove-btn:hover {
+    background-color: #0056b3;
+}
+
+.remove-btn {
+    background-color: #dc3545;
+}
+
+.remove-btn:hover {
+    background-color: #c82333;
+}

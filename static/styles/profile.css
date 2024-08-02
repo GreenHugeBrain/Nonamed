@@ -1,0 +1,83 @@
+.profile {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 2px solid #0073b1;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #0073b1;
+}
+
+.profile-username {
+    font-size: 2rem;
+    color: #333;
+}
+
+.profile-email {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.profile-info h2 {
+    font-size: 1.5rem;
+    color: #0073b1;
+    margin-bottom: 1rem;
+}
+
+.profile-info table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.profile-info table th, .profile-info table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.profile-info table th {
+    background-color: #f4f4f4;
+    color: #0073b1;
+}
+
+.profile-info table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.profile-info table a {
+    color: #0073b1;
+    text-decoration: none;
+}
+
+.profile-info table a:hover {
+    text-decoration: underline;
+}
+
+.profile-info p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Post date style */
+.post-date {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 5px;
+}

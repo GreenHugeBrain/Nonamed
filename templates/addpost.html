@@ -1,49 +1,61 @@
 {% extends "base.html" %}
 
 {% block styles %}
-    <link rel="stylesheet" href="/static/styles/addpost.css">
+<link rel="stylesheet" href="/static/styles/addpost.css">
 {% endblock %}
 
 {% block content %}
-<form action="/add_post" method="POST" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
-    <div class="form-group">
-        {{ form.title.label }}<br>
-        {{ form.title(size=32) }}
+<div class="add-post-container">
+    <div class="add-post">
+        <h2 class="title">დაამატე ახალი პოსტი</h2>
+        <form action="/add_post" method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.title.label }}<br>
+                {{ form.title(class="form-title", placeholder="პოსტის სათაური") }}
+            </div>
+            <div class="form-group">
+                {{ form.content.label }}<br>
+                {{ form.content(class="form-textarea", placeholder="რისი თქმა გსურთ?") }}
+            </div>
+            <div class="form-group file-upload">
+                {{ form.image.label }}<br>
+                <label for="imageInput" class="custom-file-upload">
+                    <input type="file" id="imageInput" name="image" />
+                    <span class="upload-text">დაურთეთ სურათი</span>
+                </label>
+            </div>
+            <div id="imagePreview" class="image-preview"></div>
+            <div class="form-group">
+                {{ form.keywords.label }}<br>
+                {{ form.keywords(class="form-control", placeholder="საკვანძო სიტყვები") }}
+            </div>
+            {{ form.submit(class="submit") }}
+        </form>
     </div>
-    <div class="form-group">
-        {{ form.content.label }}<br>
-        {{ form.content(rows=10) }}
-    </div>
+</div>
 
-    <div class="form-group">
-        {{ form.image.label }}<br>
-        {{ form.image() }}
-    </div>
-    <div class="form-group">
-        {{ form.keywords.label }}<br>
-        {{ form.keywords(size=32) }}
-    </div>
-    {{ form.submit(class="submit") }}
-</form>
-
-
-    <script>
-        document.getElementById('imageInput').addEventListener('change', function(event) {
-            var output = document.getElementById('imagePreview');
-            output.innerHTML = ''; // Clear previous preview
-            if (event.target.files && event.target.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var img = document.createElement('img');
-                    output.style.display = 'block';
-                    img.src = e.target.result;
-                    img.style.maxWidth = '100%';
-                    img.style.height = 'auto';
-                    output.appendChild(img);
-                };
-                reader.readAsDataURL(event.target.files[0]);
-            }
-        });
-    </script>
+<script>
+    document.getElementById('imageInput').addEventListener('change', function (event) {
+        var output = document.getElementById('imagePreview');
+        output.innerHTML = ''; // Clear previous preview
+        if (event.target.files && event.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var img = document.createElement('img');
+                output.style.display = 'block';  // Show the preview div
+                img.src = e.target.result;
+                img.style.maxWidth = '100%';
+                img.style.height = 'auto';
+                img.style.borderRadius = '12px';
+                img.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.3)';
+                img.style.border = '1px solid #ddd';
+                output.appendChild(img);
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        } else {
+            output.style.display = 'none';  // Hide if no file
+        }
+    });
+</script>
 {% endblock %}

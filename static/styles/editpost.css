@@ -4,7 +4,7 @@
     padding: 20px;
 }
 
-.add-post {
+form {
     padding: 30px;
     background-color: #f9f9f9;
     width: 600px;
@@ -32,8 +32,8 @@ h2.title {
     margin-bottom: 8px;
 }
 
-.form-title,
-.form-textarea {
+.title,
+.textarea {
     width: 100%;
     border: 2px solid #0073b1;
     border-radius: 8px;
@@ -43,22 +43,22 @@ h2.title {
     transition: border-color 0.3s ease;
 }
 
-.form-title:focus,
-.form-textarea:focus {
+.title:focus,
+.textarea:focus {
     border-color: #005f8a;
     outline: none;
     box-shadow: 0 0 3px rgba(0, 95, 138, 0.5);
 }
 
-.form-textarea {
-    height: 200px;
+.textarea {
     resize: vertical;
 }
 
 .file-upload {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 10px;
+    align-items: flex-start;
 }
 
 .custom-file-upload {
@@ -71,6 +71,7 @@ h2.title {
     cursor: pointer;
     font-size: 1rem;
     text-align: center;
+    width: 100%;
 }
 
 .custom-file-upload:hover {
@@ -88,15 +89,6 @@ h2.title {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.form-control {
-    width: 100%;
-    border: 2px solid #0073b1;
-    border-radius: 8px;
-    padding: 10px 15px;
-    font-size: 1rem;
-    box-sizing: border-box;
-}
-
 .submit {
     background-color: #0073b1;
     color: white;
@@ -106,17 +98,17 @@ h2.title {
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 100%;
 }
 
 .submit:hover {
     background-color: #005f8a;
 }
 
-
-#imageInput{
+#imageInput {
     display: none;
 }
 
-.upload-text{
+.custom-file-upload p{
     color: white;
 }

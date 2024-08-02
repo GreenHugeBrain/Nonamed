@@ -1,0 +1,10 @@
+{
+    "editor.fontSize": 17,
+    "editor.fontWeight": "normal",
+    "editor.fontLigatures": true,
+    "editor.fontVariations": true,
+    "workbench.iconTheme": "ayu",
+    "markdown.preview.fontSize": 15,
+    "markdown.preview.lineHeight": 0,
+    "errorLens.fontWeight": "600"
+}
