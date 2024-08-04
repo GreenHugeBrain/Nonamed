@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/friend_requests.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="friend-requests">
+    <h2>Friend Requests</h2>
+    <ul>
+        {% for request in requests %}
+        <li>
+            <p>Friend request from {{ request.sender_username }}</p>
+            <form action="{{ url_for('accept_friend_request', request_id=request.id) }}" method="post">
+                <button type="submit">Accept</button>
+            </form>
+            <form action="{{ url_for('reject_friend_request', request_id=request.id) }}" method="post">
+                <button type="submit">Reject</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

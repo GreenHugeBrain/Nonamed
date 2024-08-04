@@ -1,0 +1,68 @@
+/* General chat container styles */
+.chats {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #2c2f36;
+    color: #f5f5f5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Chat header styles */
+.chats h2 {
+    margin: 0;
+    padding-bottom: 10px;
+    font-size: 24px;
+    border-bottom: 2px solid #4CAF50;
+}
+
+/* Chat list styles */
+.chats-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Individual chat item styles */
+.chat-item {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    transition: background-color 0.3s;
+}
+
+.chat-item:hover {
+    background-color: #3c3f43;
+}
+
+/* Link styles for chat items */
+.chat-item a {
+    color: #f5f5f5;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-item a h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.chat-item a .recent-message {
+    font-size: 14px;
+    color: #b0b0b0;
+    margin: 5px 0;
+}
+
+.chat-item a small {
+    font-size: 12px;
+    color: #888;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    .chats {
+        width: 95%;
+    }
+}

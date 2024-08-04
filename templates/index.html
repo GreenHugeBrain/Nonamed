@@ -43,7 +43,7 @@
                     <li class="comment-item {% if comment.commented %} commented {% endif %}">
                         <div class="comment-header">
                             <img src="{{ url_for('static', filename='uploads/' ~ comment.image) }}" alt="Comment Image" class="comment-img">
-                            <p><strong>By <a href="{{ url_for('profile', username=comment.username) }}">{{ comment.username }}</a></strong></p> <!-- Display commenter's username as a link -->
+                            <p><strong>By <a href="{{ url_for('profile', username=comment.username) }}" style="color: rgb(0, 0, 0); text-decoration: none;">{{ comment.username }}</a></strong></p> <!-- Display commenter's username as a link -->
                         </div>
                         <p>{{ comment.content }}</p>
                     </li>

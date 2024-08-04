@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/chat_with.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="chat">
+    <div class="chat-header">
+        <h2>Chat with {{ user.username }}</h2>
+    </div>
+    <div class="chat-messages" id="messages">
+        {% for message in messages %}
+        <div class="message {{ 'sent' if message.sender_username == current_user.username else 'received' }}">
+            <strong>{{ message.sender_username }}:</strong>
+            <p>{{ message.content }}</p>
+            <small>{{ message.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+        </div>
+        {% endfor %}
+    </div>
+    <form id="messageForm">
+        <textarea id="message" placeholder="Type your message here..." required></textarea>
+        <button type="submit">Send</button>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+<script>
+    const socket = io();
+
+    socket.on('new_message', function(data) {
+        const messagesDiv = document.getElementById('messages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message';
+        if (data.sender === '{{ current_user.username }}') {
+            messageDiv.classList.add('sent');
+        } else {
+            messageDiv.classList.add('received');
+        }
+        messageDiv.innerHTML = `<strong>${data.sender}:</strong><p>${data.content}</p><small>${new Date().toLocaleString()}</small>`;
+        messagesDiv.appendChild(messageDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    });
+
+    document.getElementById('messageForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const messageContent = document.getElementById('message').value;
+        socket.emit('send_message', {
+            receiver: '{{ user.username }}',
+            content: messageContent
+        });
+        document.getElementById('message').value = '';
+    });
+</script>
+{% endblock %}

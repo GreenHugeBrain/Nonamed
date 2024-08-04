@@ -9,26 +9,34 @@
     <div class="profile-header">
         <img src="{{ url_for('static', filename='uploads/' ~ user.img) }}" alt="Profile Picture" class="profile-image">
         <h1 class="profile-username">{{ user.username }}</h1>
-        <p class="profile-email">{{ user.email }}</p>
+        <div style="display: grid;">
+            <p class="profile-email">{{ user.email }}</p>
+            <p class="profile-email">{{ user.date_registered }}</p>
+        </div>
+        {% if current_user.username != user.username %}
+            <form action="{{ url_for('add_friend', username=user.username) }}" method="post">
+                <button class="add-friend" type="submit">Add Friend</button>
+            </form>
+        {% endif %}
     </div>
 
     <div class="profile-info">
-        <h2>შენი პოსტები</h2>
+        <h2>Posts</h2>
         {% if posts %}
         <table>
             <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Date</th>
-                </tr>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+            </tr>
             </thead>
             <tbody>
-                {% for post in posts %}
-                <tr>
-                    <td><a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a></td>
-                    <td>{{ post.date_posted.strftime('%Y-%m-%d') }}</td>
-                </tr>
-                {% endfor %}
+            {% for post in posts %}
+            <tr>
+                <td><a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a></td>
+                <td>{{ post.date_posted.strftime('%Y-%m-%d') }}</td>
+            </tr>
+            {% endfor %}
             </tbody>
         </table>
         {% else %}

@@ -1,6 +1,7 @@
-from flask import render_template, redirect, request, flash, url_for
+from flask_socketio import SocketIO, emit, join_room, leave_room
+from flask import Flask, render_template, redirect, request, flash, url_for
 from app import app, db
-from models import User, Post, Comment
+from models import User, Post, Comment, Friendship, Message
 from forms import RegisterForm, LoginForm, PostForm, CommentForm
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -8,6 +9,9 @@ from flask_login import login_user, logout_user, login_required, current_user
 from ext import login_manager
 from PIL import Image
 import os
+
+socketio = SocketIO(app, cors_allowed_origins="*")
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -173,6 +177,39 @@ def edit_post(id):
     return render_template('edit_post.html', form=form, post=post)
 
 
+@app.route('/add_friend/<username>', methods=['POST'])
+@login_required
+def add_friend(username):
+    comment_form = CommentForm()
+    user_to_add = User.query.filter_by(username=username).first()
+    is_friend = False
+    
+    if user_to_add is None:
+        flash('User not found.', 'danger')
+        return redirect(url_for('home'))
+    
+    # Check if the current user is already friends with the user_to_add
+    if current_user.is_friend(user_to_add):
+        flash('You are already friends with this user.', 'info')
+        return redirect(url_for('profile', username=username))
+    
+    # Add the current user as a friend to the user_to_add
+    new_friend_for_user_to_add = Friendship(username=user_to_add.username, friend_id=current_user.id, img=user_to_add.img)
+    db.session.add(new_friend_for_user_to_add)
+    
+    # Add the user_to_add as a friend to the current user
+    new_friend_for_current_user = Friendship(username=current_user.username, friend_id=user_to_add.id, img=current_user.img)
+    db.session.add(new_friend_for_current_user)
+    
+    db.session.commit()
+    is_friend = True
+    posts = Post.query.filter_by(username=user_to_add.username).all()
+    
+    return render_template('profile.html', user=user_to_add, posts=posts, comment_form=comment_form, is_friend=is_friend)
+
+
+
+
 @app.route('/profile/<username>')
 @login_required
 def profile(username):
@@ -183,8 +220,6 @@ def profile(username):
         return redirect(url_for('home'))
     posts = Post.query.filter_by(username=user.username).all()
     return render_template('profile.html', user=user, posts=posts, comment_form=comment_form)
-
-
 
 
 
@@ -219,3 +254,67 @@ def post_detail(post_id):
     return render_template('post_detail.html', post=post)
 
 
+@app.route('/chat/<username>', methods=['GET', 'POST'])
+@login_required
+def chat_with_user(username):
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        flash("User not found.", "danger")
+        return redirect(url_for('home'))
+
+    if request.method == "POST":
+        content = request.form.get('message')
+        if content:
+            new_message = Message(
+                sender_username=current_user.username,
+                receiver_username=username,
+                content=content
+            )
+            db.session.add(new_message)
+            db.session.commit()
+            emit('new_message', {'sender': current_user.username, 'content': content}, room=username)
+            return redirect(url_for('chat_with_user', username=username))
+
+    messages = Message.query.filter(
+        ((Message.sender_username == current_user.username) & (Message.receiver_username == username)) |
+        ((Message.sender_username == username) & (Message.receiver_username == current_user.username))
+    ).order_by(Message.timestamp.asc()).all()
+
+    return render_template('chat_with_user.html', user=user, messages=messages)
+
+@app.route('/chats')
+@login_required
+def chats():
+    friends = Friendship.query.filter_by(username=current_user.username).all()
+    recent_chats = []
+
+    for friend in friends:
+        recent_message = Message.query.filter(
+            ((Message.sender_username == current_user.username) & (Message.receiver_username == friend.get_friend_username())) |
+            ((Message.sender_username == friend.get_friend_username()) & (Message.receiver_username == current_user.username))
+        ).order_by(Message.timestamp.desc()).first()
+        recent_chats.append((friend.get_friend_username(), recent_message))
+
+    return render_template('chats.html', recent_chats=recent_chats)
+
+
+@socketio.on('connect')
+def handle_connect():
+    join_room(current_user.username)
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    leave_room(current_user.username)
+
+@socketio.on('send_message')
+def handle_send_message(data):
+    receiver = data['receiver']
+    content = data['content']
+    new_message = Message(
+        sender_username=current_user.username,
+        receiver_username=receiver,
+        content=content
+    )
+    db.session.add(new_message)
+    db.session.commit()
+    emit('new_message', {'sender': current_user.username, 'content': content}, room=receiver)

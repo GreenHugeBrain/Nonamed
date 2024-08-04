@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/chat.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="chats">
+    <h2>თქვენი კლიენტები</h2>
+    <ul class="chats-list">
+        {% for friend_username, recent_message in recent_chats %}
+        <li class="chat-item">
+            <a href="{{ url_for('chat_with_user', username=friend_username) }}">
+                
+                <h3>{{ friend_username }}</h3>
+                {% if recent_message %}
+                <p class="recent-message">{{ recent_message.content }}</p>
+                <small>{{ recent_message.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+                {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
