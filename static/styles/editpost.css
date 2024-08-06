@@ -1,9 +1,11 @@
+/* Container styles with animation */
 .add-post-container {
     display: grid;
     justify-content: center;
     padding: 20px;
 }
 
+/* Form styles with animation */
 form {
     padding: 30px;
     background-color: #f9f9f9;
@@ -12,8 +14,16 @@ form {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: grid;
     gap: 20px;
+    animation: pulseBorder 5s infinite; /* Pulsing border animation */
 }
 
+@keyframes pulseBorder {
+    0% { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+    50% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+    100% { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+}
+
+/* Title styles */
 h2.title {
     font-size: 1.8rem;
     color: #333;
@@ -21,10 +31,12 @@ h2.title {
     text-align: center;
 }
 
+/* Form group styles */
 .form-group {
     margin-bottom: 20px;
 }
 
+/* Label styles */
 .form-group label {
     display: block;
     font-size: 1rem;
@@ -32,6 +44,7 @@ h2.title {
     margin-bottom: 8px;
 }
 
+/* Input styles with focus animation */
 .title,
 .textarea {
     width: 100%;
@@ -40,20 +53,22 @@ h2.title {
     padding: 10px 15px;
     font-size: 1rem;
     box-sizing: border-box;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
 }
 
 .title:focus,
 .textarea:focus {
     border-color: #005f8a;
     outline: none;
-    box-shadow: 0 0 3px rgba(0, 95, 138, 0.5);
+    box-shadow: 0 0 8px rgba(0, 95, 138, 0.7); /* Glowing effect */
 }
 
+/* Textarea styles */
 .textarea {
     resize: vertical;
 }
 
+/* File upload styles */
 .file-upload {
     display: flex;
     flex-direction: column;
@@ -61,6 +76,7 @@ h2.title {
     align-items: flex-start;
 }
 
+/* Custom file upload button with hover animation */
 .custom-file-upload {
     display: inline-block;
     padding: 12px 20px;
@@ -72,12 +88,15 @@ h2.title {
     font-size: 1rem;
     text-align: center;
     width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
 }
 
 .custom-file-upload:hover {
     background-color: #005f8a;
+    transform: scale(1.05); /* Slight scaling effect */
 }
 
+/* Image preview styles */
 #imagePreview {
     display: none;
     margin-top: 10px;
@@ -89,6 +108,7 @@ h2.title {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Submit button styles with hover animation */
 .submit {
     background-color: #0073b1;
     color: white;
@@ -97,18 +117,57 @@ h2.title {
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
     width: 100%;
 }
 
 .submit:hover {
     background-color: #005f8a;
+    transform: scale(1.05); /* Slight scaling effect */
 }
 
+/* Hidden image input */
 #imageInput {
     display: none;
 }
 
-.custom-file-upload p{
+/* Custom file upload text color */
+.custom-file-upload p {
     color: white;
+}
+
+@media screen and (max-width: 425px) {
+    form {
+        padding: 30px;
+        background-color: #f9f9f9;
+        width: 345px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: grid;
+        gap: 20px;
+        animation: pulseBorder 5s infinite;
+    }
+}
+
+
+@media screen and (max-width: 375px) {
+    .add-post-container {
+        display: grid;
+        justify-content: center;
+        padding: 20px;
+        width: 90vw;
+    }
+}
+
+@media screen and (max-width:320px) {
+    form {
+        padding: 30px;
+        background-color: #f9f9f9;
+        width: 277px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: grid;
+        gap: 20px;
+        animation: pulseBorder 5s infinite;
+    }
 }

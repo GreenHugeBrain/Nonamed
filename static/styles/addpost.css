@@ -1,17 +1,70 @@
+*{
+    font-family: TBC;
+
+}
+/* Base styles for the add-post-container */
 .add-post-container {
     display: grid;
     justify-content: center;
     padding: 20px;
+    animation: fadeIn 0.6s ease-out;
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Styles for the add-post form */
 .add-post {
     padding: 30px;
     background-color: #f9f9f9;
     width: 600px;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
     display: grid;
     gap: 20px;
+    animation: scaleIn 0.6s ease-out;
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Animated border effect */
+.add-post::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    box-shadow: 0 0 0 2px #0073b1;
+    transition: box-shadow 0.5s ease;
+    animation: borderAnimation 3s infinite;
+    z-index: 1;
+}
+
+@keyframes borderAnimation {
+    0% {
+        box-shadow: 0 0 0 2px #0073b1;
+    }
+    50% {
+        box-shadow: 0 0 0 4px #005f8a;
+    }
+    100% {
+        box-shadow: 0 0 0 2px #0073b1;
+    }
+}
+
+.add-post * {
+    position: relative;
+    z-index: 2;
 }
 
 h2.title {
@@ -19,6 +72,12 @@ h2.title {
     color: #333;
     margin-bottom: 20px;
     text-align: center;
+    animation: slideInFromTop 0.5s ease-out;
+}
+
+@keyframes slideInFromTop {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .form-group {
@@ -30,6 +89,12 @@ h2.title {
     font-size: 1rem;
     color: #555;
     margin-bottom: 8px;
+    animation: fadeInLabel 0.4s ease-out;
+}
+
+@keyframes fadeInLabel {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .form-title,
@@ -40,14 +105,13 @@ h2.title {
     padding: 10px 15px;
     font-size: 1rem;
     box-sizing: border-box;
-    transition: border-color 0.3s ease;
 }
 
 .form-title:focus,
 .form-textarea:focus {
     border-color: #005f8a;
     outline: none;
-    box-shadow: 0 0 3px rgba(0, 95, 138, 0.5);
+    box-shadow: 0 0 5px rgba(0, 95, 138, 0.5);
 }
 
 .form-textarea {
@@ -71,21 +135,35 @@ h2.title {
     cursor: pointer;
     font-size: 1rem;
     text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .custom-file-upload:hover {
     background-color: #005f8a;
+    transform: translateY(-2px);
 }
 
 #imagePreview {
     display: none;
     margin-top: 10px;
+    animation: fadeInPreview 0.6s ease-out;
+}
+
+@keyframes fadeInPreview {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 #imagePreview img {
     max-width: 100%;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeInImage 0.6s ease-out;
+}
+
+@keyframes fadeInImage {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .form-control {
@@ -95,6 +173,7 @@ h2.title {
     padding: 10px 15px;
     font-size: 1rem;
     box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .submit {
@@ -105,18 +184,59 @@ h2.title {
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .submit:hover {
     background-color: #005f8a;
+    transform: translateY(-2px);
 }
 
-
-#imageInput{
+#imageInput {
     display: none;
 }
 
-.upload-text{
+.upload-text {
     color: white;
+}
+
+
+@media screen and (max-width: 425px) {
+    .add-post {
+        padding: 30px;
+        background-color: #f9f9f9;
+        width: 345px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        gap: 20px;
+        animation: scaleIn 0.6s ease-out;
+    }
+}
+
+
+@media screen and (max-width: 375px) {
+    .add-post-container {
+        display: grid;
+        justify-content: center;
+        padding: 20px;
+        width: 90vw;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .add-post {
+        padding: 30px;
+        background-color: #f9f9f9;
+        width: 316px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        gap: 20px;
+        animation: scaleIn 0.6s ease-out;
+    }
 }

@@ -8,6 +8,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: TBC;
 }
 
 html, body {
@@ -26,6 +27,12 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+header:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    transform: translateY(-4px);
 }
 
 nav {
@@ -41,6 +48,12 @@ nav h1 {
     font-size: 2.2rem;
     color: #0073b1;
     font-weight: bold;
+    transition: color 0.4s ease, transform 0.4s ease;
+}
+
+nav h1:hover {
+    color: #005b99;
+    transform: scale(1.1);
 }
 
 nav ul {
@@ -54,12 +67,28 @@ nav ul li a {
     color: #555;
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s ease;
+    transition: color 0.4s ease, transform 0.4s ease;
     font-size: 1.1rem;
+    position: relative;
 }
 
 nav ul li a:hover {
     color: #0073b1;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #0073b1;
+    transition: width 0.4s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
 }
 
 .search-input {
@@ -68,13 +97,13 @@ nav ul li a:hover {
     padding: 8px 15px;
     font-size: 1rem;
     width: 200px;
-    transition: all 0.3s ease;
+    transition: width 0.4s ease, box-shadow 0.4s ease;
 }
 
 .search-input:focus {
     outline: none;
     width: 250px;
-    box-shadow: 0 0 5px rgba(0,115,177,0.5);
+    box-shadow: 0 0 12px rgba(0,115,177,0.3);
 }
 
 .submit-input {
@@ -85,11 +114,13 @@ nav ul li a:hover {
     border-radius: 20px;
     cursor: pointer;
     font-size: 1rem;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .submit-input:hover {
     background-color: #005d91;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
 }
 
 /* Container styles */
@@ -99,6 +130,12 @@ nav ul li a:hover {
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem 5%;
+    animation: fadeInContainer 0.6s ease-out;
+}
+
+@keyframes fadeInContainer {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Sidebar styles */
@@ -110,6 +147,12 @@ aside {
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
     margin-right: 2rem;
     height: fit-content;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+aside:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
 }
 
 .user-info {
@@ -127,12 +170,23 @@ aside {
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #0073b1;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.user-image:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 18px rgba(0,115,177,0.4);
 }
 
 .username {
     font-size: 1.2rem;
     font-weight: 600;
     color: #333;
+    transition: color 0.4s ease;
+}
+
+.username:hover {
+    color: #0073b1;
 }
 
 .side-links li {
@@ -145,15 +199,192 @@ aside {
     font-size: 1.1rem;
     display: flex;
     align-items: center;
-    transition: color 0.3s ease;
+    transition: color 0.4s ease, transform 0.4s ease;
 }
 
 .side-links a:hover {
     color: #0073b1;
+    transform: translateX(8px);
 }
 
 /* Main content styles */
 main {
     flex: 1;
+    animation: slideInMain 0.6s ease-out;
 }
 
+@keyframes slideInMain {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+#menu{
+    display: none;
+}
+
+.burgerMenu{
+    display: none;
+    justify-content: center;
+    width: 100vw;
+    position: absolute;
+    z-index: 999;
+    align-items: center;
+    height: 22vh;
+}
+
+
+.burgerMenu ul {
+    background: rgb(0 0 0 / 80%);
+    display: grid;
+    font-size: xx-large;
+    gap: 33px;
+    width: 70vw;
+    list-style: none;
+    justify-items: center;
+    border-radius: 20px;
+    align-items: center;
+}
+
+.burgerMenu ul li a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    background: rgb(0 0 0 / 30%);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+@media screen and (max-width: 768px) {
+    /* Disable hover effects for header and nav elements */
+    header:hover {
+        box-shadow: none;
+        transform: none;
+    }
+
+    nav h1:hover {
+        color: #0073b1;
+        transform: none;
+    }
+
+    nav ul li a:hover {
+        color: #0073b1;
+    }
+
+    nav ul li a::after {
+        width: 0;
+    }
+
+    .search-input:focus {
+        width: 200px;
+        box-shadow: none;
+    }
+
+    .submit-input:hover {
+        background-color: #0073b1;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .burgerMenu ul p{
+        color: white;
+    }
+
+    .burgerMenu ul li a{
+        color: white;
+    }
+
+    .burgerMenu ul {
+        background: rgb(0 0 0 / 80%);
+        display: grid;
+        font-size: xx-large;
+        gap: 33px;
+        width: 70vw;
+        height: 83vh;
+        list-style: none;
+        justify-items: center;
+        border-radius: 20px;
+        align-items: center;
+    }
+
+    aside:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .user-image:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .username:hover {
+        color: #333;
+    }
+
+    .side-links a:hover {
+        color: #555;
+        transform: none;
+    }
+
+    .burgerMenu ul li a:hover {
+        background: rgb(0 0 0 / 30%);
+    }
+    #menu{
+        display: block;
+    }
+    .first-ul li{
+        display: none;
+    }
+    aside{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 425px){
+    nav h1{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 375px){
+    nav ul{
+        gap: 1rem;
+    }
+
+    .burgerMenu ul {
+        background: rgb(0 0 0 / 80%);
+        display: grid;
+        font-size: xx-large;
+        gap: 33px;
+        width: 85vw;
+        height: 88vh;
+        list-style: none;
+        justify-items: center;
+        border-radius: 20px;
+        align-items: center;
+    }
+    
+}
+
+@media screen and (max-width:320px) {
+    .search-input {
+        border: 2px solid #0073b1;
+        border-radius: 20px;
+        padding: 8px 12px;
+        font-size: 1rem;
+        width: 120px;
+        transition: width 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .burgerMenu ul {
+        background: rgb(0 0 0 / 80%);
+        display: grid;
+        font-size: xx-large;
+        gap: 33px;
+        width: 90vw;
+        height: 88vh;
+        list-style: none;
+        justify-items: center;
+        border-radius: 20px;
+        align-items: center;
+    }
+}

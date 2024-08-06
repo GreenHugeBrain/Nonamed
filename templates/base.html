@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/styles/base.css">
+    <script src="https://kit.fontawesome.com/131d522e1c.js" crossorigin="anonymous"></script>
     {% block styles %}{% endblock %}
     <title>{% block title %}უსახელო{% endblock %}</title>
 </head>
@@ -13,7 +14,7 @@
     <header>
         <nav>
             <h1>უსახელო</h1>
-            <ul>
+            <ul class="first-ul">
                 {% if current_user.is_authenticated %}
                 <input class="search-input" type="search">
                 <input class="submit-input" type="submit" value="ძიება" style="font-family: TBC;">
@@ -24,10 +25,30 @@
                 <li><a href="/login">შესვლა</a></li>
                 <li><a href="/register">რეგისტრაცია</a></li>
                 {% endif %}
+                <i class="fa-solid fa-bars" id="menu"></i>
             </ul>
         </nav>
     </header>
-    
+
+    <div class="burgerMenu">
+        <ul>
+            {% if current_user.is_authenticated %}
+            <li><a href="/">მთავარი</a></li>
+            <li><a href="/add_post">პოსტის დამატება</a></li>
+            <li><a href="/logout">გამოსვლა</a></li>
+            <img src="{{ url_for('static', filename='uploads/' ~ current_user.img) }}" alt="მომხმარებლის სურათი"
+                class="user-image">
+            <p class="username">{{ current_user.username }}</p>
+            <li><a href="{{ url_for('profile', username=current_user.username) }}"
+                    style="text-decoration: none;">პროფილი</a></li>
+            <li><a href="/profile">პროექტები</a></li>
+            <li><a href="/chats">ჩატი</a></li>
+            {% else %}
+            <li><a href="/login">შესვლა</a></li>
+            <li><a href="/register">რეგისტრაცია</a></li>
+            {% endif %}
+        </ul>
+    </div>
     <div class="container">
         {% if current_user.is_authenticated %}
         <aside>
@@ -37,7 +58,8 @@
                 <p class="username">{{ current_user.username }}</p>
             </div>
             <ul class="side-links">
-                <li><a href="{{ url_for('profile', username=current_user.username) }}" style="text-decoration: none; color: rgb(0, 0, 0);">პროფილი</a></li>
+                <li><a href="{{ url_for('profile', username=current_user.username) }}"
+                        style="text-decoration: none; color: rgb(0, 0, 0);">პროფილი</a></li>
                 <li><a href="/profile">პროექტები</a></li>
                 <li><a href="/chats">ჩატი</a></li>
             </ul>
@@ -48,9 +70,10 @@
             {% block content %}{% endblock %}
         </main>
     </div>
-    
+
     <script src="/static/JS/Search.js"></script>
-    
+    <script src="/static/JS/burgerMenu.js"></script>
+
 </body>
 
 </html>

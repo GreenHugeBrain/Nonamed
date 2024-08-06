@@ -17,6 +17,8 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
+
 @app.route("/", methods=["GET", "POST"])
 def home():
     posts = Post.query.all()[::-1]
