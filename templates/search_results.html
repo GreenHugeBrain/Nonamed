@@ -7,27 +7,29 @@
 {% block content %}
 <div class="container">
 
-    {{ comment_form.hidden_tag()}}
+    {{ comment_form.hidden_tag() }}
     {% if posts %}
     <div class="posts">
         {% for post in posts %}
         <div class="post">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <img class="user-img" src="{{ url_for('static', filename='uploads/' ~ post.user_image) }}" alt="Post Image" width="40px" height="40px" style="border-radius: 50%;">
+            <div class="post-header">
+                <img class="user-img" src="{{ url_for('static', filename='uploads/' ~ post.user_image) }}" alt="Post Image" width="40" height="40">
                 <p><em>By {{ post.username }}</em></p>
             </div>
             <h3>{{ post.title }}</h3>
             {% if UserTrue %}
-            <form action="{{ url_for('edit_post', id=post.id) }}" method="POST" enctype="multipart/form-data">
-                <button type="submit" class="edit-btn">Edit</button>
-            </form>
-            <form action="{{ url_for('delete_post', id=post.id) }}" method="POST" enctype="multipart/form-data">
-                <button type="submit" class="remove-btn">Remove</button>
-            </form>
+            <div class="post-actions">
+                <form action="{{ url_for('edit_post', id=post.id) }}" method="POST" enctype="multipart/form-data">
+                    <button type="submit" class="edit-btn">Edit</button>
+                </form>
+                <form action="{{ url_for('delete_post', id=post.id) }}" method="POST" enctype="multipart/form-data">
+                    <button type="submit" class="remove-btn">Remove</button>
+                </form>
+            </div>
             {% endif %}
             <p class="post_content">{{ post.content }}</p>
             {% if post.image_file %}
-                <img src="{{ url_for('static', filename='uploads/' ~ post.image_file) }}" alt="{{ post.title }}" width="250px" style="border-radius: 20px;">
+                <img src="{{ url_for('static', filename='uploads/' ~ post.image_file) }}" alt="{{ post.title }}" class="post-image">
             {% endif %}
             <div class="comment-section">
                 <h4 class="toggle-comments">კომენტარები</h4>
@@ -36,8 +38,8 @@
                     <ul>
                         {% for comment in post.comments %}
                         <li>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <img src="{{ url_for('static', filename='uploads/' ~ comment.user_image) }}" alt="User Image" class="post-image" width="30px" style="border-radius: 30px; margin-top: 10px;">
+                            <div class="comment-header">
+                                <img src="{{ url_for('static', filename='uploads/' ~ comment.user_image) }}" alt="User Image" class="comment-img">
                                 <p><strong>By {{ comment.username }}</strong></p>
                             </div>
                             <p>{{ comment.content }}</p>
@@ -64,6 +66,7 @@
         {% endfor %}
     </div>
     {% else %}
+    <p>No posts available.</p>
     {% endif %}
 </div>
 <script src="/static/JS/showComment.js"></script>

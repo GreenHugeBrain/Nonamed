@@ -1,10 +1,11 @@
-*{
+* {
     font-family: TBC;
-
+    box-sizing: border-box;
 }
+
 /* Base styles for the add-post-container */
 .add-post-container {
-    display: grid;
+    display: flex; /* Change from grid to flex for better responsiveness */
     justify-content: center;
     padding: 20px;
     animation: fadeIn 0.6s ease-out;
@@ -19,12 +20,14 @@
 .add-post {
     padding: 30px;
     background-color: #f9f9f9;
-    width: 600px;
+    width: 100%; /* Full width of its container */
+    max-width: 600px; /* Maximum width to maintain layout on larger screens */
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
-    display: grid;
+    display: flex; /* Change from grid to flex for better responsiveness */
+    flex-direction: column; /* Stack elements vertically */
     gap: 20px;
     animation: scaleIn 0.6s ease-out;
 }
@@ -104,7 +107,6 @@ h2.title {
     border-radius: 8px;
     padding: 10px 15px;
     font-size: 1rem;
-    box-sizing: border-box;
 }
 
 .form-title:focus,
@@ -172,7 +174,6 @@ h2.title {
     border-radius: 8px;
     padding: 10px 15px;
     font-size: 1rem;
-    box-sizing: border-box;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -200,43 +201,30 @@ h2.title {
     color: white;
 }
 
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .add-post {
+        padding: 20px;
+        width: 90%; /* Full width with some margin on smaller screens */
+    }
+}
 
 @media screen and (max-width: 425px) {
     .add-post {
-        padding: 30px;
-        background-color: #f9f9f9;
-        width: 345px;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        position: relative;
-        overflow: hidden;
-        display: grid;
-        gap: 20px;
-        animation: scaleIn 0.6s ease-out;
+        padding: 15px;
+        width: 95%; /* Full width with very little margin on small screens */
     }
 }
-
 
 @media screen and (max-width: 375px) {
     .add-post-container {
-        display: grid;
-        justify-content: center;
-        padding: 20px;
-        width: 90vw;
+        padding: 15px;
     }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width: 320px) {
     .add-post {
-        padding: 30px;
-        background-color: #f9f9f9;
-        width: 316px;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        position: relative;
-        overflow: hidden;
-        display: grid;
-        gap: 20px;
-        animation: scaleIn 0.6s ease-out;
+        padding: 15px;
+        width: 100%; /* Full width for very small screens */
     }
 }

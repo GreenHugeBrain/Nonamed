@@ -28,28 +28,38 @@
 <script>
     const socket = io();
 
+    // Handle incoming messages
     socket.on('new_message', function(data) {
         const messagesDiv = document.getElementById('messages');
         const messageDiv = document.createElement('div');
-        messageDiv.className = 'message';
-        if (data.sender === '{{ current_user.username }}') {
-            messageDiv.classList.add('sent');
-        } else {
-            messageDiv.classList.add('received');
-        }
+        messageDiv.className = `message ${data.sender === '{{ current_user.username }}' ? 'sent' : 'received'}`;
         messageDiv.innerHTML = `<strong>${data.sender}:</strong><p>${data.content}</p><small>${new Date().toLocaleString()}</small>`;
         messagesDiv.appendChild(messageDiv);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
     });
 
+    // Send a new message
     document.getElementById('messageForm').addEventListener('submit', function(event) {
         event.preventDefault();
-        const messageContent = document.getElementById('message').value;
-        socket.emit('send_message', {
-            receiver: '{{ user.username }}',
-            content: messageContent
-        });
-        document.getElementById('message').value = '';
+        const messageContent = document.getElementById('message').value.trim();
+        if (messageContent !== '') {
+            const receiver = '{{ user.username }}'; // Ensure this is set correctly
+            socket.emit('send_message', {
+                receiver: receiver,
+                content: messageContent
+            });
+
+            // Also display the message locally
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message sent'; // Assuming the current user is sending the message
+            messageDiv.innerHTML = `<strong>You:</strong><p>${messageContent}</p><small>${new Date().toLocaleString()}</small>`;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
+
+            document.getElementById('message').value = ''; // Clear the input field
+        }
     });
 </script>
+
 {% endblock %}

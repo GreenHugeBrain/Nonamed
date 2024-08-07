@@ -5,12 +5,13 @@ body {
     color: #333;
     background-color: #f4f4f4;
 }
+
 /* Container for posts */
 .posts {
-    background-color: #ffffff; /* Changed to white for a cleaner look */
+    background-color: #ffffff;
     padding: 30px;
-    width: 60vw; /* Adjusted to fit better on various screen sizes */
-    max-width: 1000px; /* Added max-width for larger screens */
+    width: 80vw; /* Adjusted for better fit on various screen sizes */
+    max-width: 1200px; /* Increased max-width for larger screens */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
@@ -21,7 +22,7 @@ body {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid #e1e1e1; /* Lightened border color */
+    border: 1px solid #e1e1e1;
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -40,13 +41,13 @@ body {
     margin-bottom: 15px;
 }
 
-.user-img{
-    border-radius: 20px;
-    margin-top: 20px;
+/* User Image */
+.user-img {
+    border-radius: 50%;
     transition: transform 0.3s ease;
     max-width: 100%;
-    max-height: 400px; /* Adjust this value based on your design */
-    object-fit: cover; /* This will cover the container while maintaining aspect ratio */
+    max-height: 40px; /* Adjusted for consistency */
+    object-fit: cover;
 }
 
 .user-img:hover {
@@ -95,7 +96,6 @@ body {
 
 .comment-section h4:hover {
     color: #005582;
-    text-decoration: none;
 }
 
 /* Comments container */
@@ -151,15 +151,15 @@ body {
 
 /* Commented comments */
 .commented {
-    background-color: rgba(100, 100, 255, 0.1); /* Light blue background */
-    border-left: 5px solid #0000FF; /* Blue border */
+    background-color: rgba(100, 100, 255, 0.1);
+    border-left: 5px solid #0000FF;
     padding-left: 15px;
-    font-style: italic; /* Italic text */
+    font-style: italic;
 }
 
 /* No comments */
 .no-comments {
-    font-family: 'Arial', sans-serif; /* Ensuring consistency */
+    font-family: 'Arial', sans-serif;
     background-color: rgba(208, 208, 208, 0.8);
     padding: 8px;
     border-radius: 5px;
@@ -219,6 +219,7 @@ body {
     color: #0073b1;
     cursor: pointer;
     font-size: 14px;
+    font-weight: 600;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -231,14 +232,15 @@ body {
     padding: 6px 15px;
     border-radius: 4px;
     background-color: transparent;
-    border: 1px solid #dc3545;
-    color: #dc3545;
+    border: 1px solid #ff4d4d;
+    color: #ff4d4d;
     cursor: pointer;
     font-size: 14px;
+    font-weight: 600;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .remove-btn:hover {
-    background-color: #dc3545;
+    background-color: #ff4d4d;
     color: #ffffff;
 }

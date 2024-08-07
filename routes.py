@@ -47,7 +47,7 @@ def home():
 def add_post():
     user = User.query.filter_by(username=current_user.username).first()
     form = PostForm()
-
+    
     if form.validate_on_submit():
         image_file = None
         if form.image.data:
@@ -80,8 +80,21 @@ def add_post():
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))  # Redirect logged-in users to the home page
+
     form = RegisterForm()
     if form.validate_on_submit():
+        # Check if username already exists
+        if User.query.filter_by(username=form.username.data).first():
+            flash("Username already exists. Please choose a different username.", "danger")
+            return render_template("register.html", form=form)
+        
+        # Check if email already exists (optional)
+        if User.query.filter_by(email=form.email.data).first():
+            flash("Email already in use. Please choose a different email.", "danger")
+            return render_template("register.html", form=form)
+        
         hashed_password = generate_password_hash(form.password.data)
         image_file = 'default.jpg'
         
@@ -110,8 +123,14 @@ def register():
     
     return render_template("register.html", form=form)
 
+
+
+
 @app.route("/login", methods=["POST", "GET"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))  # Redirect logged-in users to the home page
+
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -122,6 +141,7 @@ def login():
         else:
             flash("Invalid username or password", "danger")
     return render_template("login.html", form=form)
+
 
 @app.route("/logout")
 @login_required
@@ -319,4 +339,24 @@ def handle_send_message(data):
     )
     db.session.add(new_message)
     db.session.commit()
+    # Emit the message to the receiver's room
     emit('new_message', {'sender': current_user.username, 'content': content}, room=receiver)
+
+
+
+    
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
+
+# 500 Error Handler
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template('500.html'), 500
+
+# Other error handlers if needed...
+
+# Example 403 Forbidden Error Handler
+@app.errorhandler(403)
+def forbidden(error):
+    return render_template('403.html'), 403

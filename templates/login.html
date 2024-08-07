@@ -8,6 +8,16 @@
 <main class="login-container">
     <h1 class="login">Login</h1>
     <div class="login_form">
+        <!-- Display Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <div class="flashes">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
         <form action="/login" method="POST">
             {{ form.hidden_tag() }}
             <div class="form-group">

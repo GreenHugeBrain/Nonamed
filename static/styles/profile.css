@@ -9,14 +9,10 @@
     animation: fadeIn 0.8s ease-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
 /* Profile Header */
 .profile-header {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 1.5rem;
     border-bottom: 2px solid #00a6ff;
@@ -42,11 +38,13 @@
     font-size: 2.2rem;
     color: #333;
     font-weight: bold;
+    margin: 0;
 }
 
 .profile-email {
     font-size: 1.3rem;
     color: #666;
+    margin: 0;
 }
 
 /* Profile Info */
@@ -125,25 +123,136 @@
     transform: scale(0.95);
 }
 
-@media screen and (max-width: 425px) {
+/* Media Queries */
+@media screen and (max-width: 1024px) {
     .profile-header {
-        display: grid;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-username {
+        font-size: 1.8rem;
+    }
+
+    .profile-email {
+        font-size: 1.2rem;
+    }
+
+    .profile-info h2 {
+        font-size: 1.4rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .profile {
+        padding: 1.5rem;
+    }
+
+    .profile-header {
         align-items: center;
-        gap: 1.5rem;
-        border-bottom: 2px solid #00a6ff;
-        padding-bottom: 1rem;
-        margin-bottom: 2rem;
+    }
+
+    .profile-image {
+        width: 90px;
+        height: 90px;
+    }
+
+    .profile-username {
+        font-size: 1.6rem;
+    }
+
+    .profile-email {
+        font-size: 1.1rem;
+    }
+
+    .profile-info h2 {
+        font-size: 1.2rem;
+    }
+
+    .profile-info table {
+        font-size: 0.9rem;
+    }
+
+    .add-friend {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .profile {
+        padding: 1rem;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-username {
+        font-size: 1.4rem;
+    }
+
+    .profile-email {
+        font-size: 1rem;
+    }
+
+    .profile-info h2 {
+        font-size: 1rem;
+    }
+
+    .profile-info table {
+        font-size: 0.8rem;
+    }
+
+    .add-friend {
+        font-size: 0.9rem;
+        padding: 8px 16px;
     }
 }
 
 @media screen and (max-width: 320px) {
     .profile {
-        max-width: 1200px;
-        margin: 2rem auto;
-        padding: 1rem;
-        background-color: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        animation: fadeIn 0.8s ease-out;
+        padding: 0.5rem;
+    }
+
+    .profile-header {
+        padding-bottom: 0.5rem;
+    }
+
+    .profile-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    .profile-username {
+        font-size: 1.2rem;
+    }
+
+    .profile-email {
+        font-size: 0.9rem;
+    }
+
+    .profile-info h2 {
+        font-size: 0.9rem;
+    }
+
+    .profile-info table {
+        font-size: 0.7rem;
+    }
+
+    .add-friend {
+        font-size: 0.8rem;
+        padding: 6px 12px;
     }
 }

@@ -11,7 +11,8 @@
     font-family: TBC;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     font-family: 'TBC', Arial, sans-serif;
     line-height: 1.6;
@@ -23,7 +24,7 @@ html, body {
 /* Header styles */
 header {
     background-color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -31,7 +32,7 @@ header {
 }
 
 header:hover {
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     transform: translateY(-4px);
 }
 
@@ -103,7 +104,7 @@ nav ul li a:hover::after {
 .search-input:focus {
     outline: none;
     width: 250px;
-    box-shadow: 0 0 12px rgba(0,115,177,0.3);
+    box-shadow: 0 0 12px rgba(0, 115, 177, 0.3);
 }
 
 .submit-input {
@@ -120,7 +121,7 @@ nav ul li a:hover::after {
 .submit-input:hover {
     background-color: #005d91;
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
 /* Container styles */
@@ -134,8 +135,15 @@ nav ul li a:hover::after {
 }
 
 @keyframes fadeInContainer {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Sidebar styles */
@@ -144,7 +152,7 @@ aside {
     background-color: #ffffff;
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     margin-right: 2rem;
     height: fit-content;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
@@ -152,7 +160,7 @@ aside {
 
 aside:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
 .user-info {
@@ -175,7 +183,7 @@ aside:hover {
 
 .user-image:hover {
     transform: scale(1.15);
-    box-shadow: 0 0 18px rgba(0,115,177,0.4);
+    box-shadow: 0 0 18px rgba(0, 115, 177, 0.4);
 }
 
 .username {
@@ -214,56 +222,167 @@ main {
 }
 
 @keyframes slideInMain {
-    from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
-#menu{
+#menu {
     display: none;
 }
 
-.burgerMenu{
+/* Burger menu styles */
+.burgerMenu {
     display: none;
-    justify-content: center;
-    width: 100vw;
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
     z-index: 999;
+    justify-content: center;
     align-items: center;
-    height: 22vh;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease-in-out;
 }
-
 
 .burgerMenu ul {
-    background: rgb(0 0 0 / 80%);
-    display: grid;
-    font-size: xx-large;
-    gap: 33px;
-    width: 70vw;
-    list-style: none;
-    justify-items: center;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 20px;
+    padding: 2rem;
+    width: 80%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.burgerMenu ul li {
+    width: 100%;
+    text-align: center;
 }
 
 .burgerMenu ul li a {
     color: white;
     font-weight: bold;
     text-decoration: none;
-    background: rgb(0 0 0 / 30%);
-    padding: 10px;
-    border-radius: 8px;
+    font-size: 1.2rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    display: block;
+    background: rgba(255, 255, 255, 0.1);
 }
 
+.burgerMenu ul li a:hover,
+.burgerMenu ul li a:focus {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.burgerMenu .user-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid white;
+    margin-bottom: 1rem;
+}
+
+.burgerMenu .username {
+    color: white;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+/* Burger icon styles */
+#menu {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#menu:hover {
+    transform: scale(1.1);
+}
+
+/* Animation for menu items */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.burgerMenu ul li {
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+.burgerMenu ul li:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.burgerMenu ul li:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.burgerMenu ul li:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.burgerMenu ul li:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.burgerMenu ul li:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.burgerMenu ul li:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+.burgerMenu ul li:nth-child(7) {
+    animation-delay: 0.7s;
+}
+
+
 @media screen and (max-width: 768px) {
-    /* Disable hover effects for header and nav elements */
+
     header:hover {
         box-shadow: none;
         transform: none;
     }
 
-    nav h1:hover {
-        color: #0073b1;
-        transform: none;
+    nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    nav h1 {
+        display: none;
     }
 
     nav ul li a:hover {
@@ -285,11 +404,11 @@ main {
         box-shadow: none;
     }
 
-    .burgerMenu ul p{
+    .burgerMenu ul p {
         color: white;
     }
 
-    .burgerMenu ul li a{
+    .burgerMenu ul li a {
         color: white;
     }
 
@@ -297,9 +416,9 @@ main {
         background: rgb(0 0 0 / 80%);
         display: grid;
         font-size: xx-large;
-        gap: 33px;
+        gap: 11px;
         width: 70vw;
-        height: 83vh;
+        height: 75vh;
         list-style: none;
         justify-items: center;
         border-radius: 20px;
@@ -328,25 +447,28 @@ main {
     .burgerMenu ul li a:hover {
         background: rgb(0 0 0 / 30%);
     }
-    #menu{
+
+    #menu {
         display: block;
     }
-    .first-ul li{
+
+    .first-ul li {
         display: none;
     }
-    aside{
+
+    aside {
         display: none;
     }
 }
 
-@media screen and (max-width: 425px){
-    nav h1{
+@media screen and (max-width: 425px) {
+    nav h1 {
         display: none;
     }
 }
 
-@media screen and (max-width: 375px){
-    nav ul{
+@media screen and (max-width: 375px) {
+    nav ul {
         gap: 1rem;
     }
 
@@ -354,15 +476,15 @@ main {
         background: rgb(0 0 0 / 80%);
         display: grid;
         font-size: xx-large;
-        gap: 33px;
+        gap: 12px;
         width: 85vw;
-        height: 88vh;
+        height: 76vh;
         list-style: none;
         justify-items: center;
         border-radius: 20px;
         align-items: center;
     }
-    
+
 }
 
 @media screen and (max-width:320px) {
@@ -379,7 +501,31 @@ main {
         background: rgb(0 0 0 / 80%);
         display: grid;
         font-size: xx-large;
-        gap: 33px;
+        gap: 15px;
+        width: 90vw;
+        height: 88vh;
+        list-style: none;
+        justify-items: center;
+        border-radius: 20px;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width:562px) {
+    .search-input {
+        border: 2px solid #0073b1;
+        border-radius: 20px;
+        padding: 8px 12px;
+        font-size: 1rem;
+        width: 120px;
+        transition: width 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .burgerMenu ul {
+        background: rgb(0 0 0 / 80%);
+        display: grid;
+        font-size: xx-large;
+        gap: 15px;
         width: 90vw;
         height: 88vh;
         list-style: none;

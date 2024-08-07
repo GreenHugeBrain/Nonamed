@@ -8,6 +8,15 @@
 <div class="register-container">
     <div class="register_form">
         <h1 class="register">Register</h1>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <div class="flashes">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
         <form action="/register" method="POST" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <div class="form-group">
