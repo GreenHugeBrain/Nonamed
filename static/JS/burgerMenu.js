@@ -8,3 +8,4 @@ burgerIcon.addEventListener('click', function() {
         burgerMenu.style.display = 'grid';
     }
 });
+    
